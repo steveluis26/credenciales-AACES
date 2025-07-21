@@ -1,35 +1,13 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Menubar } from 'primereact/menubar';
+import Navbar from './components/layout/Navbar';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 
 function App() {
-  // Menú principal
-  const menuItems = [
-    {
-      label: 'Inicio',
-      icon: 'pi pi-home',
-      url: '/',
-      className: 'p-menuitem-active'
-    },
-    {
-      label: 'Credenciales',
-      icon: 'pi pi-id-card',
-      items: [
-        { label: 'Validar', icon: 'pi pi-search', url: '/validar' },
-        { label: 'Generar', icon: 'pi pi-qrcode', url: '/generar' }
-      ]
-    }
-  ];
-
   return (
     <BrowserRouter>
       {/* Menú superior */}
-      <Menubar
-        model={menuItems}
-        start={<span className="text-xl font-bold">Sistema Credenciales</span>}
-        className="shadow-3 mb-3"
-      />
+      <Navbar />
 
       {/* Contenido principal */}
       <div className="p-4">
