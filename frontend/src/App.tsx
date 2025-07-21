@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
+import { Card } from 'primereact/card';
+import { Button } from 'primereact/button';
 
 function App() {
   // Menú principal
@@ -8,7 +10,7 @@ function App() {
       label: 'Inicio',
       icon: 'pi pi-home',
       url: '/',
-      className: 'p-menuitem-active' // Estilo para ítem activo
+      className: 'p-menuitem-active'
     },
     {
       label: 'Credenciales',
@@ -23,8 +25,8 @@ function App() {
   return (
     <BrowserRouter>
       {/* Menú superior */}
-      <Menubar 
-        model={menuItems} 
+      <Menubar
+        model={menuItems}
         start={<span className="text-xl font-bold">Sistema Credenciales</span>}
         className="shadow-3 mb-3"
       />
@@ -32,12 +34,21 @@ function App() {
       {/* Contenido principal */}
       <div className="p-4">
         <Routes>
-          <Route path="/" element={
-            <div className="card">
-              <h2>Bienvenido al Sistema</h2>
-              <p>Seleccione una opción del menú</p>
-            </div>
-          } />
+          <Route
+            path="/"
+            element={
+              <Card title="Bienvenido al Sistema" className="mb-3">
+                <p className="m-0">
+                  Seleccione una opción del menú para comenzar a trabajar con las credenciales.
+                </p>
+                <Button
+                  label="Validar Credencial"
+                  icon="pi pi-search"
+                  className="mt-3"
+                />
+              </Card>
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>
