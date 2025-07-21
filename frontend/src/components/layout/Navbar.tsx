@@ -6,7 +6,6 @@ export default function Navbar() {
   const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Al cargar, intenta recuperar preferencia de localStorage
     const stored = localStorage.getItem('darkMode');
     if (stored === 'true') {
       enableDarkMode();
@@ -18,16 +17,14 @@ export default function Navbar() {
     const themeLink = document.getElementById('theme-css') as HTMLLinkElement;
     if (!themeLink) return;
 
-    themeLink.href =
-      '/node_modules/primereact/resources/themes/vela-blue/theme.css';
+    themeLink.href = '/themes/lara-dark-blue/theme.css';
   };
 
   const enableLightMode = () => {
     const themeLink = document.getElementById('theme-css') as HTMLLinkElement;
     if (!themeLink) return;
 
-    themeLink.href =
-      '/node_modules/primereact/resources/themes/lara-light-blue/theme.css';
+    themeLink.href = '/themes/lara-light-blue/theme.css';
   };
 
   const toggleTheme = () => {

@@ -2,10 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 
-// PrimeReact (TEMA: lara-light-blue)
-import 'primereact/resources/themes/vela-blue/theme.css';
-
-import 'primereact/resources/primereact.min.css'; 
+// PrimeReact dependencias base
+import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 
