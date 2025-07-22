@@ -8,4 +8,10 @@ const api = axios.create({
   }
 });
 
+// services/api.ts
+export const buscarCredencial = async (query: string) => {
+  const response = await fetch(`/api/credenciales?q=${query}`);
+  return response.json();
+};
+
 export default api;

@@ -9,7 +9,11 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/routing/ProtectedRoute';
 
-const Home = lazy(() => import('./pages/public/Home'));
+const Home = lazy(() => 
+  import('./pages/public/Home').then(module => ({
+    default: module.Home // Asigna manualmente
+  }))
+);
 const BuscarCredencial = lazy(() => import('./pages/public/BuscarCredencial'));
 const VerCredencial = lazy(() => import('./pages/public/VerCredencial'));
 
