@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { API_URL } from '../utils/constants';
+import api from './api'; // usa el cliente centralizado
 
-interface Cliente {
+export interface Cliente {
   id?: number;
   nombre: string;
   email: string;
@@ -10,21 +9,25 @@ interface Cliente {
   fecha_vencimiento_pago?: string;
 }
 
+// GET lista de clientes
 export const getClientes = async (): Promise<Cliente[]> => {
-  const response = await axios.get(`${API_URL}/clientes`);
+  const response = await api.get('/clientes');
   return response.data;
 };
 
+// POST crear cliente
 export const createCliente = async (clienteData: Cliente): Promise<Cliente> => {
-  const response = await axios.post(`${API_URL}/clientes`, clienteData);
+  const response = await api.post('/clientes', clienteData);
   return response.data;
 };
 
+// PATCH toggle estado
 export const toggleClienteStatus = async (id: number): Promise<void> => {
-  await axios.patch(`${API_URL}/clientes/${id}/toggle-status`);
+  await api.patch(`/clientes/${id}/toggle-status`);
 };
 
+// GET clientes próximos a vencimiento
 export const getClientesProximosVencimientos = async (): Promise<Cliente[]> => {
-  const response = await axios.get(`${API_URL}/clientes/proximos-vencimientos`);
+  const response = await api.get('/clientes/proximos-vencimientos');
   return response.data;
 };
