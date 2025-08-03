@@ -2,35 +2,41 @@ import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { login as authLogin } from '../services/auth';
 import { AuthContext } from './AuthContextBase';
-
-interface User {
-  id: number;
-  nombre: string;
-  email: string;
-  rol: 'admin' | 'capacitador';
-}
-
-export interface AuthContextType {
-  user: User | null;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-  isAuthenticated: boolean;
-}
+import type { AuthContextType, User } from './AuthContextBase';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [initialized, setInitialized] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+    const initializeAuth = async () => {
+      try {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          await new Promise(resolve => setTimeout(resolve, 50));
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error('Error al cargar usuario:', error);
+      } finally {
+        setInitialized(true);
+        setLoading(false);
+      }
+    };
+
+    initializeAuth();
   }, []);
 
   const login = async (email: string, password: string) => {
-    const userData = await authLogin(email, password);
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    try {
+      setLoading(true);
+      const userData = await authLogin(email, password);
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logout = () => {
@@ -43,6 +49,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     isAuthenticated: !!user,
+    loading,
+    initialized
   };
 
   return (
