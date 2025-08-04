@@ -1,21 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
-import Navbar from '@/components/layout/Navbar';
-import Home from '@/pages/public/Home';
-import BuscarCredencial from '@/pages/public/BuscarCredencial';
-
-function App() {
+export default function App() {
   return (
-    <div className="app-container">
-      <Navbar />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/buscar-credencial" element={<BuscarCredencial />} />
-        </Routes>
-      </main>
+    <div style={{
+      backgroundColor: '#1a1a1a', // Fondo oscuro
+      minHeight: '100vh',
+      color: '#ffffff', // Texto blanco
+      padding: '2rem',
+      textAlign: 'center'
+    }}>
+      <h1>✅ ¡Aplicación Funcionando!</h1>
+      <p>Base limpia lista para desarrollar</p>
     </div>
   );
 }
-
-export default App;
