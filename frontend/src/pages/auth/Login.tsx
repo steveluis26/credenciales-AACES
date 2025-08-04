@@ -21,7 +21,7 @@ const Login = () => {
 
     try {
       await login(email, password);
-      navigate('/');
+      navigate('/home'); // Redirige a /home (público) después de login
     } catch {
       setError('Credenciales incorrectas. Por favor intente nuevamente.');
     } finally {

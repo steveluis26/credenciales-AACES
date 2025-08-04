@@ -17,25 +17,23 @@ const ProtectedRoute = ({
   redirectUnauthorizedTo = '/',
   checkAuthenticationOnly = false
 }: ProtectedRouteProps) => {
-  const auth = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
   const location = useLocation();
 
-  if (!auth.initialized || auth.loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
+  if (loading) {
+    return null; // No renderizar nada mientras carga
   }
 
-  const publicRoutes = ['/', '/login', '/forgot-password', '/buscar-credencial'];
-  const isCredencialRoute = location.pathname.startsWith('/credencial/');
+  // Rutas públicas (incluyendo /home)
+  const publicRoutes = ['/', '/home', '/login', '/forgot-password', '/buscar-credencial'];
+  const isPublicRoute = publicRoutes.includes(location.pathname) || 
+                       location.pathname.startsWith('/credencial/');
 
-  if (publicRoutes.includes(location.pathname) || isCredencialRoute) {
+  if (isPublicRoute) {
     return <>{children}</>;
   }
 
-  if (!auth.isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to={redirectUnauthenticatedTo} replace />;
   }
 
@@ -43,7 +41,7 @@ const ProtectedRoute = ({
     return <>{children}</>;
   }
 
-  if (allowedRoles.length > 0 && (!auth.user || !allowedRoles.includes(auth.user.rol))) {
+  if (allowedRoles.length > 0 && (!user || !allowedRoles.includes(user.rol))) {
     return <Navigate to={redirectUnauthorizedTo} replace />;
   }
 
