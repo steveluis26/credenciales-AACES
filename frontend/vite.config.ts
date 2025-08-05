@@ -12,9 +12,9 @@ export default defineConfig({
   server: {
     fs: {
       allow: [
-        // Ruta completa a tu proyecto
+        // Permite acceso a toda la carpeta del proyecto
         path.resolve(__dirname, './'),
-        // Para módulos necesarios
+        // Necesario para módulos de node
         path.resolve(__dirname, './node_modules')
       ]
     }

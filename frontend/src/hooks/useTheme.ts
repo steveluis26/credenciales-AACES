@@ -8,13 +8,30 @@ export const useTheme = () => {
   })
 
   useEffect(() => {
-    // Elimina el tema anterior
-    document.documentElement.classList.remove(theme === 'lara-light-blue' 
-      ? 'lara-dark-blue' 
-      : 'lara-light-blue')
+    // Ruta relativa desde la raíz del proyecto
+    const themePath = `src/assets/styles/theme/${theme}/theme.css`
     
-    // Aplica el nuevo tema
-    document.documentElement.classList.add(theme)
+    // Elimina cualquier tema previo
+    const oldLinks = document.querySelectorAll('link[data-theme]')
+    oldLinks.forEach(link => link.remove())
+
+    // Crea nuevo link
+    const link = document.createElement('link')
+    link.rel = 'stylesheet'
+    link.href = themePath
+    link.dataset.theme = 'true' // Marcamos como tema
+    
+    // Manejo de errores
+    link.onerror = () => {
+      console.error(`Error al cargar el tema: ${themePath}`)
+      // Carga tema por defecto como fallback
+      const fallback = document.createElement('link')
+      fallback.rel = 'stylesheet'
+      fallback.href = 'src/assets/styles/theme/lara-light-blue/theme.css'
+      document.head.appendChild(fallback)
+    }
+
+    document.head.appendChild(link)
     localStorage.setItem('theme', theme)
   }, [theme])
 
