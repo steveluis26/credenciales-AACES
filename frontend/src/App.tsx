@@ -1,14 +1,15 @@
+import { Card } from 'primereact/card';
+import { Navbar } from '@/components/layout/Navbar';
+
 export default function App() {
   return (
-    <div style={{
-      backgroundColor: '#1a1a1a', // Fondo oscuro
-      minHeight: '100vh',
-      color: '#ffffff', // Texto blanco
-      padding: '2rem',
-      textAlign: 'center'
-    }}>
-      <h1>✅ ¡Aplicación Funcionando!</h1>
-      <p>Base limpia lista para desarrollar</p>
+    <div className="min-h-screen">
+      <Navbar />
+      <div className="p-4">
+        <Card title="Contenido">
+          <p>Texto adaptado al tema activo</p>
+        </Card>
+      </div>
     </div>
   );
 }
